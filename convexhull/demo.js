@@ -48,45 +48,45 @@ function initialize() {
             weightText.setAttribute("visibility", "hidden");
             weightText.innerHTML = "";
 
-            var nearestIndex = -1;
-			var nearestDist = Infinity;
+            var closestPoint = -1;
+			var closestDistance = Infinity;
 			points.forEach(function(point, index) {
 				var dist = Math.hypot(point[0] - evX, point[1] - evY);
-				if (dist < nearestDist) {
-					nearestDist = dist;
-					nearestIndex = index;
+				if (dist < closestDistance) {
+					closestDistance = dist;
+					closestPoint = index;
 				}
 			});
             
             if (gamePlaying && (ev.button == 0 || ev.button == 2)) {
-				if (nearestIndex != -1 && nearestDist < RADIUS * 2) {
+				if (closestPoint != -1 && closestDistance < RADIUS * 2) {
                     if (currPlayer.innerText == "Player A's Turn") {
-                        playerA += points[nearestIndex][2];
+                        playerA += points[closestPoint][2];
                         currPlayer.innerText = "Player B's Turn";
                     } else {
-                        playerB += points[nearestIndex][2];
+                        playerB += points[closestPoint][2];
                         currPlayer.innerText = "Player A's Turn";
                     }
-					points.splice(nearestIndex, 1);
+					points.splice(closestPoint, 1);
                 }
-				if (nearestDist < RADIUS * 5) {
+				if (closestDistance < RADIUS * 5) {
 					svgElem.oncontextmenu = function(ev) {
 						ev.preventDefault();
 						svgElem.oncontextmenu = null;
 					};
 				}
 			} else if (!gamePlaying && ev.button == 0) {
-				if (nearestIndex != -1 && nearestDist < RADIUS * 2)
-					currPointLoc = nearestIndex;
+				if (closestPoint != -1 && closestDistance < RADIUS * 2)
+					currPointLoc = closestPoint;
 				else {
 					currPointLoc = points.length;
 					points.push(null);
 				}
 			    points[currPointLoc] = [evX, evY, Math.floor(Math.random() * 10)];
             } else if (!gamePlaying &&  ev.button == 2) {
-				if (nearestIndex != -1 && nearestDist < RADIUS * 2)
-					points.splice(nearestIndex, 1);
-				if (nearestDist < RADIUS * 5) {
+				if (closestPoint != -1 && closestDistance < RADIUS * 2)
+					points.splice(closestPoint, 1);
+				if (closestDistance < RADIUS * 5) {
 					svgElem.oncontextmenu = function(ev) {
 						ev.preventDefault();
 						svgElem.oncontextmenu = null;
@@ -112,16 +112,16 @@ function initialize() {
             }
         }
         else if (type == "over" && hover) {
-            var nearestIndex = -1;
-			var nearestDist = Infinity;
+            var closestPoint = -1;
+			var closestDistance = Infinity;
 			points.forEach(function(point, index) {
 				var dist = Math.hypot(point[0] - evX, point[1] - evY);
-				if (dist < nearestDist) {
-					nearestDist = dist;
-					nearestIndex = index;
+				if (dist < closestDistance) {
+					closestDistance = dist;
+					closestPoint = index;
                 }
 			});
-            if (nearestIndex != -1 && nearestDist < RADIUS * 2) {
+            if (closestPoint != -1 && closestDistance < RADIUS * 2) {
                 weightText.setAttribute("visibility", "visible");
     //            weightElem.setAttribute("x", evX - 0.1);
     //            weightElem.setAttribute("y", evY - 0.1);
@@ -129,7 +129,7 @@ function initialize() {
     //            weightElem.setAttribute("height", 0.1);
                 weightText.setAttribute("x", evX - 0.02);
                 weightText.setAttribute("y", evY - 0.02);
-                weightText.innerHTML = points[nearestIndex][2];
+                weightText.innerHTML = points[closestPoint][2];
             }
             else {
                 weightText.setAttribute("visibility", "hidden");
@@ -144,6 +144,16 @@ function initialize() {
 	};
 }
 
+// Borrowed from w3schools.com
+function showInstructions() {
+  var x = document.getElementById("instructions");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
 function showWeights() {
     points.forEach(function(point) {
 		var circElem = document.createElementNS(svgElem.namespaceURI, "circle");
@@ -152,11 +162,6 @@ function showWeights() {
 		circElem.setAttribute("r", 0.1);
         allWeights.appendChild(textE);
 	});
-    
-//    var s = points.map(function(point, i) {
-//        return (i == 0 ? "M" : "L") + point[0] + "," + point[1];
-//	   }).join("") + "Z";
-//	pathElement.setAttribute("d", s);
 }
 
 function handleStart() {
