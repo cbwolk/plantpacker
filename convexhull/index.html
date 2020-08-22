@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>163 Project</title>
+        <meta name="author" content="Colton Wolk" />
+        <meta name="description" content="163 Project" />
+        <meta http-equiv="Content-Style-Type" content="text/css"/>
+	    <meta http-equiv="Content-Script-Type" content="application/javascript"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css" type="text/css" />
+        
+    </head>
+    <body>
+        <dl class="page">
+            <dt class="logo">
+            <dd><h1 class="name"><a id="nameLink" href="index.html">/* convex hull game */</a></h1>
+            </dd>
+            
+            <dt class="mainContent">
+        
+    <article>
+        <p id="p1"><a id="a2" href="chpdf.html">About PDF</a><a id="a2" onclick="showInstructions()">Instructions</a></p>
+        <div id="instructions" style="text-align: center; display:none">      
+            <ul style="display: inline-block; text-align: left">
+                <li>Click to place a point, or click and hold to drag.</li>
+                <li>Hover directly over a point to view its score.</li>
+                <li>Right-click on point to delete (or click if in a game).</li>
+                <li>Click "End Game" once all points are deleted.</li>
+                <li>Click "Instructions" again to hide this section.</li>
+            </ul>
+        </div>
+    <svg preserveAspectRatio="xMidyMid meet" viewBox="-0.5 -0.5 1 1" style="display:block; height: 55vh; width: 70vw; margin:0em auto; border:0.07em solid #808080">
+        <path d="" fill="#C1E9EC" stroke-width="0.008" stroke="#0000FF"/>
+        <g>
+        <g fill="#379F40"></g>
+        <g fill="#FF0000"></g>
+        <g fill="#0000FF"></g>
+            </g>
+        <rect x="" y="" fill="#FF0000"></rect><text font-size="0.05" x="" y="" id="weightText"></text>
+        
+    </svg>
+    <p style="max-width:100%; text-align:center;">
+        <input type="button" name="randompoints" id="random" onclick="handleRandom();"/>
+        <label for="random">Random Points</label>  
+        <input type="button" name="resetpoints" id="reset" onclick="handleReset();"/><label for="reset">Reset</label>
+        <input type="button" name="startgame" id="start" onclick="handleStart();"/><label for="start">Start Game</label>
+        <input type="button" name="endgame" id="end" onclick="handleEnd();"/><label for="end">End Game</label>
+<!--        <input type="button" name="showweights" id="weights" onclick="showWeights();"/><label for="weights">Show/Hide Weights</label>-->
+    </p>
+        <center><h3 id="currPlayer"></h3></center>
+
+            <script src="convexhull.js"></script>
+            <script src="demo.js"></script>
+
+    </article>
+    
+
+
+            </dt>
+
+            
+                
+            <dd class="footer">
+                <p>
+                    Site Created by Colton Wolk
+                </p>
+            </dd>
+        </dl>
+        
+    </body>
+</html>
+
