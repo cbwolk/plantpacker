@@ -7,10 +7,10 @@ if (isset($_POST['Email'])) {
 
     function problem($error)
     {
-        echo "We are very sorry, but there were error(s) found with the form you submitted. ";
-        echo "These errors appear below.<br><br>";
+        echo "There was a problem sending the form.";
+        echo "It is likely because the server has not been set up yet. See the error below:<br><br>";
         echo $error . "<br><br>";
-        echo "Please go back and fix these errors.<br><br>";
+        echo "The message has not been sent<br><br>";
         die();
     }
 
@@ -20,7 +20,7 @@ if (isset($_POST['Email'])) {
         !isset($_POST['Email']) ||
         !isset($_POST['Message'])
     ) {
-        problem('We are sorry, but there appears to be a problem with the form you submitted.');
+        problem('There was a problem sending the form.');
     }
 
     $name = $_POST['Name']; // required
@@ -31,17 +31,17 @@ if (isset($_POST['Email'])) {
     $email_exp = '/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/';
 
     if (!preg_match($email_exp, $email)) {
-        $error_message .= 'The Email address you entered does not appear to be valid.<br>';
+        $error_message .= 'The email address you entered is not valid.<br>';
     }
 
     $string_exp = "/^[A-Za-z .'-]+$/";
 
     if (!preg_match($string_exp, $name)) {
-        $error_message .= 'The Name you entered does not appear to be valid.<br>';
+        $error_message .= 'The name you entered is not valid.<br>';
     }
 
     if (strlen($message) < 2) {
-        $error_message .= 'The Message you entered do not appear to be valid.<br>';
+        $error_message .= 'The message you entered is not valid.<br>';
     }
 
     if (strlen($error_message) > 0) {
